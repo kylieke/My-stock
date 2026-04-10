@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票關卡計算器</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: #f4f4f9; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h2 { color: #333; text-align: center; }
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #666; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #007AFF; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        #result { margin-top: 20px; display: none; }
+        .price-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .price-val { font-weight: bold; color: #d32f2f; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>📈 股票關卡計算器</h2>
+    
+    <div class="input-group">
+        <label>股票名稱</label>
+        <input type="text" id="stockName" placeholder="例如：台積電">
+    </div>
+
+    <div class="input-group">
+        <label>外資成本</label>
+        <input type="number" id="foreignCost" placeholder="請輸入外資成本價格">
+    </div>
+
+    <button onclick="calculate()">計算關卡價</button>
+
+    <div id="result">
+        <h3 id="resTitle"></h3>
+        <div class="price-row"><span>起飛價格 (1.04)</span><span class="price-val" id="p0"></span></div>
+        <div class="price-row"><span>關卡一 (1.20)</span><span class="price-val" id="p1"></span></div>
+        <div class="price-row"><span>關卡二 (1.40)</span><span class="price-val" id="p2"></span></div>
+        <div class="price-row"><span>關卡三 (1.70)</span><span class="price-val" id="p3"></span></div>
+    </div>
+</div>
+
+<script>
+function calculate() {
+    const name = document.getElementById('stockName').value;
+    const cost = parseFloat(document.getElementById('foreignCost').value);
+    
+    if (isNaN(cost)) {
+        alert("請輸入正確的外資成本數字");
+        return;
+    }
+
+    document.getElementById('resTitle').innerText = name + " 目標分析";
+    document.getElementById('p0').innerText = (cost * 1.04).toFixed(2);
+    document.getElementById('p1').innerText = (cost * 1.2).toFixed(2);
+    document.getElementById('p2').innerText = (cost * 1.4).toFixed(2);
+    document.getElementById('p3').innerText = (cost * 1.7).toFixed(2);
+    
+    document.getElementById('result').style.display = 'block';
+}
+</script>
+
+</body>
+</html>
